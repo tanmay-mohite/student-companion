@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: student-companion
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn "app:create_app()"
+    envVars:
+      - key: MONGO_URI
+        value:
+      - key: JWT_SECRET
+        value:
+      - key: JWT_EXPIRY_HOURS
+        value:
+      - key: GOOGLE_CLIENT_ID
+        value:
+      - key: GOOGLE_CLIENT_SECRET
+        value:

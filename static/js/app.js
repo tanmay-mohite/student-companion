@@ -4,6 +4,8 @@ const App = {
     currentUser: null,
     currentPage: null,
     moduleRenderers: {},
+    lastUnreadCount: 0,
+    notificationIntervalId: null,
 
     async init() {
         this.setupSidebarToggle();
@@ -27,7 +29,11 @@ const App = {
         }
 
         window.addEventListener('hashchange', () => this.route());
-        if (this.currentUser) this.route();
+        if (this.currentUser) {
+            this.route();
+            // Trigger app ready event
+            document.dispatchEvent(new CustomEvent('app:ready'));
+        }
     },
 
     // Register a module's render function
@@ -376,6 +382,8 @@ const App = {
         this.currentUser = null;
         this.showAuth();
         Utils.showToast('Logged out', 'info');
+        // Stop notification checker when logging out
+        this.stopNotificationChecker();
     },
 
     setupLogout() {
@@ -417,7 +425,7 @@ const App = {
         this.applyTheme(newTheme);
         if (this.currentUser) {
             this.currentUser.theme = newTheme;
-            API.put('/profile', { theme: newTheme }).catch(() => {});
+            API.put('/profile', { theme: newTheme }).catch(() => { });
         }
         // Re-render the current page so charts and theme-computed colors update live
         if (this.currentUser && this.currentPage) this.route();
@@ -432,6 +440,14 @@ const App = {
             avatar.innerHTML = `<img src="${this.currentUser.avatar}" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">`;
         } else {
             avatar.textContent = this.currentUser.name.charAt(0).toUpperCase();
+        }
+    },
+
+    // Stop checking for notifications
+    stopNotificationChecker() {
+        if (this.notificationIntervalId) {
+            clearInterval(this.notificationIntervalId);
+            this.notificationIntervalId = null;
         }
     },
 
@@ -468,7 +484,83 @@ const App = {
             this.loadNotifBell();
         } catch (e) { /* ignore */ }
     },
+
+    // Notification checker for real-time popups
+    startNotificationChecker() {
+        // Clear any existing interval
+        if (this.notificationIntervalId) {
+            clearInterval(this.notificationIntervalId);
+        }
+
+        // Check for new notifications every 30 seconds
+        this.notificationIntervalId = setInterval(async () => {
+            try {
+                if (!this.currentUser) return;
+
+                const data = await API.get('/notifications');
+                const unreadCount = data.unread_count || 0;
+
+                // Show popup if there are new unread notifications
+                if (unreadCount > this.lastUnreadCount) {
+                    const newNotifications = unreadCount - this.lastUnreadCount;
+                    this.showNotificationPopup(newNotifications, data.notifications.slice(0, newNotifications));
+                }
+
+                this.lastUnreadCount = unreadCount;
+
+                // Update the bell badge
+                this.loadNotifBell();
+            } catch (error) {
+                console.error('Error checking notifications:', error);
+            }
+        }, 30000); // Check every 30 seconds
+
+        // Also check immediately when starting
+        this.checkNotificationsNow();
+    },
+
+    async checkNotificationsNow() {
+        try {
+            if (!this.currentUser) return;
+
+            const data = await API.get('/notifications');
+            const unreadCount = data.unread_count || 0;
+            this.lastUnreadCount = unreadCount;
+
+            // Update the bell badge
+            this.loadNotifBell();
+        } catch (error) {
+            console.error('Error checking notifications:', error);
+        }
+    },
+
+    showNotificationPopup(count, notifications) {
+        // Create a toast notification for each new notification
+        notifications.forEach(notification => {
+            Utils.showToast(notification.title, 'info');
+        });
+
+        // Also show a summary if there are multiple
+        if (count > 1) {
+            Utils.showToast(`You have ${count} new notifications`, 'info');
+        }
+    },
+
+    // Stop notification checker (useful when logging out)
+    stopNotificationChecker() {
+        if (this.notificationIntervalId) {
+            clearInterval(this.notificationIntervalId);
+            this.notificationIntervalId = null;
+        }
+    },
 };
 
 // Init on DOM ready
 document.addEventListener('DOMContentLoaded', () => App.init());
+
+// Start notification checker when app initializes
+document.addEventListener('app:ready', () => {
+    if (App.currentUser) {
+        App.startNotificationChecker();
+    }
+});
