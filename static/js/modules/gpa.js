@@ -7,8 +7,8 @@ const GPAModule = {
     totalCredits: 0,
     scale: '10',
 
-    GRADE_OPTIONS_10: ['A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'F'],
-    GRADE_OPTIONS_4: ['A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'F'],
+    GRADE_OPTIONS_10: ['O', 'A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'F'],
+    GRADE_OPTIONS_4: ['O', 'A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'F'],
 
     async render() {
         const content = document.getElementById('content');
@@ -230,6 +230,7 @@ const GPAModule = {
                             <div>
                                 <h5 class="mb-1">${Utils.esc(sem.name)}</h5>
                                 <small class="text-muted">${sem.subject_count} subjects | ${sem.total_credits} credits</small>
+                                ${sem.updated_at || sem.created_at ? `<small class="text-muted d-block">Updated ${Utils.timeAgo(sem.updated_at || sem.created_at)}</small>` : ''}
                             </div>
                             <div class="d-flex align-items-center gap-2">
                                 <span class="badge bg-${gpaColor} fs-6">GPA: ${sem.gpa}/${maxScale}</span>
@@ -258,13 +259,13 @@ const GPAModule = {
                                     </thead>
                                     <tbody>
                                         ${sem.subjects.map(s => {
-                                            const gradeColor = this.getGradeColor(s.grade);
-                                            return `<tr>
+                const gradeColor = this.getGradeColor(s.grade);
+                return `<tr>
                                                 <td>${Utils.esc(s.name)}</td>
                                                 <td class="text-center">${s.credits}</td>
                                                 <td class="text-center"><span class="badge bg-${gradeColor}">${s.grade}</span></td>
                                             </tr>`;
-                                        }).join('')}
+            }).join('')}
                                     </tbody>
                                 </table>
                             </div>
@@ -275,7 +276,7 @@ const GPAModule = {
     },
 
     getGradeColor(grade) {
-        if (['A+', 'A'].includes(grade)) return 'success';
+        if (['O', 'A+', 'A'].includes(grade)) return 'success';
         if (['B+', 'B'].includes(grade)) return 'primary';
         if (['C+', 'C'].includes(grade)) return 'info';
         if (grade === 'D') return 'warning';
