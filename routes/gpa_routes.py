@@ -11,8 +11,8 @@ logger = get_logger("gpa")
 
 gpa_bp = Blueprint("gpa", __name__)
 
-GRADE_POINTS_10 = {"A+": 10, "A": 9, "B+": 8, "B": 7, "C+": 6, "C": 5, "D": 4, "F": 0}
-GRADE_POINTS_4 = {"A+": 4.0, "A": 4.0, "B+": 3.3, "B": 3.0, "C+": 2.3, "C": 2.0, "D": 1.0, "F": 0}
+GRADE_POINTS_10 = {"O": 10, "A+": 10, "A": 9, "B+": 8, "B": 7, "C+": 6, "C": 5, "D": 4, "F": 0}
+GRADE_POINTS_4 = {"O": 4.0, "A+": 4.0, "A": 4.0, "B+": 3.3, "B": 3.0, "C+": 2.3, "C": 2.0, "D": 1.0, "F": 0}
 VALID_GRADES_10 = list(GRADE_POINTS_10.keys())
 VALID_GRADES_4 = list(GRADE_POINTS_4.keys())
 
