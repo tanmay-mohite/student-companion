@@ -55,11 +55,11 @@ const ProfileModule = {
                             <p class="text-muted small mb-2">${Utils.esc(user.email || '')}</p>
                             <div class="mb-2">
                                 ${user.email_verified
-                                    ? '<span class="badge bg-success me-1"><i class="bi bi-check-circle"></i> Verified</span>'
-                                    : '<span class="badge bg-warning text-dark me-1"><i class="bi bi-exclamation-circle"></i> Unverified</span>'}
+                ? '<span class="badge bg-success me-1"><i class="bi bi-check-circle"></i> Verified</span>'
+                : '<span class="badge bg-warning text-dark me-1"><i class="bi bi-exclamation-circle"></i> Unverified</span>'}
                                 ${user.two_factor_enabled
-                                    ? '<span class="badge bg-success"><i class="bi bi-shield-lock"></i> 2FA</span>'
-                                    : '<span class="badge bg-secondary"><i class="bi bi-shield-x"></i> No 2FA</span>'}
+                ? '<span class="badge bg-success"><i class="bi bi-shield-lock"></i> 2FA</span>'
+                : '<span class="badge bg-secondary"><i class="bi bi-shield-x"></i> No 2FA</span>'}
                             </div>
                             <div class="text-muted small">
                                 ${user.roll_no ? `<span>${Utils.esc(user.roll_no)}</span>` : ''}
@@ -166,17 +166,17 @@ const ProfileModule = {
                                     <div id="collapse2FA" class="accordion-collapse collapse" data-bs-parent="#securityAccordion">
                                         <div class="accordion-body" id="2fa-settings">
                                             <p>Status: ${user.two_factor_enabled
-                                                ? '<span class="badge bg-success">Enabled</span>'
-                                                : '<span class="badge bg-secondary">Disabled</span>'}</p>
+                ? '<span class="badge bg-success">Enabled</span>'
+                : '<span class="badge bg-secondary">Disabled</span>'}</p>
                                             <div id="2fa-actions">
                                                 ${user.two_factor_enabled
-                                                    ? `<form id="disable-2fa-form">
+                ? `<form id="disable-2fa-form">
                                                         <p class="text-muted small">Enter your password to disable 2FA</p>
                                                         <div class="mb-3"><input type="password" class="form-control" name="password" placeholder="Your password" required></div>
                                                         <button type="submit" class="btn btn-outline-danger">Disable 2FA</button>
                                                        </form>`
-                                                    : `<button class="btn btn-outline-success" onclick="ProfileModule.setup2FA()"><i class="bi bi-shield-lock"></i> Enable 2FA</button>`
-                                                }
+                : `<button class="btn btn-outline-success" onclick="ProfileModule.setup2FA()"><i class="bi bi-shield-lock"></i> Enable 2FA</button>`
+            }
                                             </div>
                                         </div>
                                     </div>
@@ -329,7 +329,7 @@ const ProfileModule = {
                 <thead><tr><th>Date</th><th>IP Address</th><th>Device</th></tr></thead>
                 <tbody>${history.slice(0, 10).map(h => `
                     <tr>
-                        <td class="small">${Utils.formatDate(h.created_at)}</td>
+                        <td class="small">${Utils.timeAgo(h.created_at)}</td>
                         <td class="small">${Utils.esc(h.ip_address || 'N/A')}</td>
                         <td class="small text-truncate" style="max-width:200px" title="${Utils.esc(h.user_agent || '')}">${this._parseUA(h.user_agent || '')}</td>
                     </tr>

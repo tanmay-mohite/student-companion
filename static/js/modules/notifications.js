@@ -171,7 +171,7 @@ const NotificationsModule = {
                             <strong>${Utils.esc(r.title)}</strong>
                             <span class="badge bg-${priorityClass} ms-1">${r.priority || 'medium'}</span>
                             ${r.description ? `<div class="text-muted small">${Utils.esc(r.description)}</div>` : ''}
-                            ${r.date ? `<div class="text-muted small"><i class="bi bi-calendar"></i> ${Utils.formatDate(r.date)}</div>` : ''}
+                            ${r.date ? `<div class="text-muted small"><i class="bi bi-calendar"></i> ${Utils.timeAgo(r.date)}</div>` : ''}
                         </label>
                     </div>
                     <button class="btn btn-sm btn-outline-danger" onclick="NotificationsModule.deleteReminder('${r.id}')" title="Delete">

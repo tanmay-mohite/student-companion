@@ -442,7 +442,7 @@ const DashboardModule = {
                             <div class="small">${Utils.esc(a.title)}</div>
                             ${a.subtitle ? `<div class="text-muted" style="font-size:0.72rem">${Utils.esc(a.subtitle)}</div>` : ''}
                         </div>
-                        <div class="text-muted" style="font-size:0.7rem;white-space:nowrap">${Utils.formatDate(a.timestamp)}</div>
+                        <div class="text-muted" style="font-size:0.7rem;white-space:nowrap">${Utils.timeAgo(a.timestamp)}</div>
                     </div>
                 `).join('') + '</div>';
         } catch (e) {

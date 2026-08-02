@@ -170,7 +170,7 @@ const ExpensesModule = {
                             <div class="fw-semibold">${Utils.esc(e.description || e.category)}</div>
                             <div class="text-muted small">
                                 <span class="badge bg-light text-dark me-1">${Utils.esc(e.category)}</span>
-                                ${Utils.formatDate(e.date)}
+                                ${Utils.timeAgo(e.date)}
                             </div>
                         </div>
                     </div>
@@ -318,16 +318,16 @@ const ExpensesModule = {
                         <h6 class="mb-2">Top Categories</h6>
                         <div class="mb-3">
                             ${data.top_categories.map((c, i) => {
-                                const cat = this.categories.find(cat => cat.name === c.name) || { color: '#95A5A6' };
-                                const percent = data.total_this_month > 0 ? (c.amount / data.total_this_month * 100).toFixed(1) : 0;
-                                return `
+            const cat = this.categories.find(cat => cat.name === c.name) || { color: '#95A5A6' };
+            const percent = data.total_this_month > 0 ? (c.amount / data.total_this_month * 100).toFixed(1) : 0;
+            return `
                                     <div class="d-flex align-items-center mb-2">
                                         <span class="me-2" style="width:20px; height:20px; border-radius:4px; background:${cat.color}; display:inline-block"></span>
                                         <span class="flex-grow-1">${Utils.esc(c.name)}</span>
                                         <span class="fw-bold me-2">Rs.${c.amount.toFixed(0)}</span>
                                         <span class="text-muted small">${percent}%</span>
                                     </div>`;
-                            }).join('')}
+        }).join('')}
                         </div>
 
                         <h6 class="mb-2">Daily Spending Trend</h6>

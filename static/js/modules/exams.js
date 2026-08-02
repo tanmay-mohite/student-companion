@@ -116,9 +116,9 @@ const ExamsModule = {
             const diff = this.getCountdown(s.exam_date);
             const urgencyClass = s.days_left === null ? 'secondary' :
                 s.days_left < 0 ? 'secondary' :
-                s.days_left <= 3 ? 'danger' :
-                s.days_left <= 7 ? 'warning' :
-                s.days_left <= 30 ? 'info' : 'success';
+                    s.days_left <= 3 ? 'danger' :
+                        s.days_left <= 7 ? 'warning' :
+                            s.days_left <= 30 ? 'info' : 'success';
 
             const priorityBadge = s.priority === 'high' ? '<span class="badge bg-danger ms-2">High Priority</span>' :
                 s.priority === 'medium' ? '<span class="badge bg-warning text-dark ms-2">Medium</span>' : '';
@@ -133,7 +133,7 @@ const ExamsModule = {
                                     ${priorityBadge}
                                 </h5>
                                 <div class="exam-meta">
-                                    ${s.exam_date ? `<span class="exam-date"><i class="bi bi-calendar-event"></i> ${Utils.formatDate(s.exam_date)}</span>` : '<span class="text-muted">No date set</span>'}
+                                    ${s.exam_date ? `<span class="exam-date"><i class="bi bi-calendar-event"></i> ${Utils.timeAgo(s.exam_date)}</span>` : '<span class="text-muted">No date set</span>'}
                                     <span class="badge bg-${urgencyClass} ms-2">${diff.text}</span>
                                 </div>
                             </div>

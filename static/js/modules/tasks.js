@@ -175,7 +175,7 @@ const TasksModule = {
                                 <h6 class="mb-0 ${t.status === 'completed' ? 'text-decoration-line-through text-muted' : ''}">${safeTitle}</h6>
                                 ${t.is_overdue ? '<span class="badge bg-danger" style="font-size:0.65rem">Overdue</span>' : ''}
                             </div>
-                            <div class="text-muted small">${safeSubject} &middot; Due: ${Utils.formatDate(t.deadline)}</div>
+                            <div class="text-muted small">${safeSubject} &middot; Due: ${Utils.timeAgo(t.deadline)}</div>
                             ${safeDesc ? `<p class="small mt-1 mb-0 text-muted">${safeDesc}</p>` : ''}
                             ${tags ? `<div class="mt-1">${tags}</div>` : ''}
                             ${subtaskHtml}
@@ -210,8 +210,8 @@ const TasksModule = {
                         </div>
                         <div class="kanban-cards">
                             ${colTasks.length === 0
-                                ? '<p class="text-muted small text-center py-3">No tasks</p>'
-                                : colTasks.map(t => this._kanbanCard(t)).join('')}
+                        ? '<p class="text-muted small text-center py-3">No tasks</p>'
+                        : colTasks.map(t => this._kanbanCard(t)).join('')}
                         </div>
                     </div>`;
             }).join('') + `</div>`;
@@ -237,7 +237,7 @@ const TasksModule = {
                 ${tags ? `<div class="mt-1">${tags}</div>` : ''}
                 ${subtaskHtml}
                 <div class="d-flex justify-content-between align-items-center mt-2">
-                    <small class="text-muted" style="font-size:0.65rem">${Utils.formatDate(t.deadline)}</small>
+                    <small class="text-muted" style="font-size:0.65rem">${Utils.timeAgo(t.deadline)}</small>
                     ${t.is_overdue ? '<span class="badge bg-danger" style="font-size:0.6rem">Overdue</span>' : ''}
                 </div>
             </div>`;
