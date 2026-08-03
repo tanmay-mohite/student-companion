@@ -264,6 +264,7 @@ const ExpensesModule = {
             await API.put('/expenses/budget', { monthly_budget: budget });
             this.loadAll();
             Utils.showToast('Budget saved', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
         } catch (e) {
             Utils.showToast('Failed to save budget', 'error');
         }
@@ -436,6 +437,7 @@ const ExpensesModule = {
                 modal.hide();
                 this.loadAll();
                 Utils.showToast('Expense added', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) {
                 Utils.showToast(err.message || 'Failed to add expense', 'error');
             }
@@ -450,6 +452,7 @@ const ExpensesModule = {
             await API.delete(`/expenses/${expenseId}`);
             this.loadAll();
             Utils.showToast('Expense deleted', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
         } catch (e) {
             Utils.showToast('Failed to delete', 'error');
         }

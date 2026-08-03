@@ -210,6 +210,7 @@ const NotificationsModule = {
             await API.put('/notifications/mark-all-read');
             this.loadAll();
             Utils.showToast('All marked as read', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
         } catch (e) {
             Utils.showToast('Failed', 'error');
         }
@@ -291,6 +292,7 @@ const NotificationsModule = {
                 modal.hide();
                 this.loadAll();
                 Utils.showToast('Reminder added', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) {
                 Utils.showToast(err.message || 'Failed', 'error');
             }
@@ -305,6 +307,7 @@ const NotificationsModule = {
             await API.delete(`/notifications/reminders/${reminderId}`);
             this.loadAll();
             Utils.showToast('Reminder deleted', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
         } catch (e) {
             Utils.showToast('Failed', 'error');
         }
@@ -372,6 +375,7 @@ const NotificationsModule = {
                 modal.hide();
                 this.loadSettings();
                 Utils.showToast('Settings saved', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) {
                 Utils.showToast(err.message || 'Failed', 'error');
             }

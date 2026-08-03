@@ -153,11 +153,23 @@ const DashboardModule = {
 
             // Load recent activity async
             this.loadRecentActivity();
+
+            // Setup refresh listener
+            this.setupRefreshListener();
         } catch (e) {
             document.getElementById('dashboard-loading').innerHTML = `
                 <div class="text-danger"><i class="bi bi-exclamation-triangle"></i> Failed to load dashboard</div>
                 <button class="btn btn-sm btn-outline-primary mt-2" onclick="DashboardModule.render()">Retry</button>`;
         }
+    },
+
+    // Listen for dashboard refresh events from other modules
+    setupRefreshListener() {
+        document.addEventListener('dashboard:refresh', () => {
+            if (this.currentPage === 'dashboard') {
+                this.render();
+            }
+        });
     },
 
     // --- Stat Cards ---
@@ -456,6 +468,15 @@ const DashboardModule = {
         if (h < 12) return 'Good morning';
         if (h < 17) return 'Good afternoon';
         return 'Good evening';
+    },
+
+    // Listen for dashboard refresh events from other modules
+    setupRefreshListener() {
+        document.addEventListener('dashboard:refresh', () => {
+            if (this.currentPage === 'dashboard') {
+                this.render();
+            }
+        });
     },
 };
 

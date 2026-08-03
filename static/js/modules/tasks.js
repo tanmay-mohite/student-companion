@@ -304,6 +304,7 @@ const TasksModule = {
             try {
                 await API.post('/tasks/bulk/complete', { task_ids: ids });
                 Utils.showToast(`${ids.length} tasks completed`, 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
                 this.toggleBulkSelect();
                 this.loadTasks();
             } catch (e) { Utils.showToast(e.message, 'error'); }
@@ -313,6 +314,7 @@ const TasksModule = {
             try {
                 await API.post('/tasks/bulk/delete', { task_ids: ids });
                 Utils.showToast(`${ids.length} tasks deleted`, 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
                 this.toggleBulkSelect();
                 this.loadTasks();
             } catch (e) { Utils.showToast(e.message, 'error'); }

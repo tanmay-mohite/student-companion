@@ -265,6 +265,7 @@ const ExamsModule = {
                 this.loadSubjects();
                 this.loadStats();
                 Utils.showToast('Topic added', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) {
                 Utils.showToast(err.message || 'Failed to add topic', 'error');
             }
@@ -280,6 +281,7 @@ const ExamsModule = {
             this.loadSubjects();
             this.loadStats();
             Utils.showToast('Topic removed', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
         } catch (e) {
             Utils.showToast('Failed to delete topic', 'error');
         }
@@ -382,6 +384,7 @@ const ExamsModule = {
                 this.loadSubjects();
                 this.loadStats();
                 Utils.showToast('Exam subject added', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) {
                 Utils.showToast(err.message || 'Failed to add subject', 'error');
             }
@@ -449,6 +452,7 @@ const ExamsModule = {
                 this.loadSubjects();
                 this.loadStats();
                 Utils.showToast('Subject updated', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) {
                 Utils.showToast(err.message || 'Failed to update', 'error');
             }
@@ -464,6 +468,7 @@ const ExamsModule = {
             this.loadSubjects();
             this.loadStats();
             Utils.showToast('Exam deleted', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
         } catch (e) {
             Utils.showToast('Failed to delete', 'error');
         }

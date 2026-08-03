@@ -153,8 +153,8 @@ const AttendanceModule = {
             </div>
             <div id="att-subject-list">
                 ${this.subjects.map(s => {
-                    const safeName = Utils.esc(s.name);
-                    return `
+            const safeName = Utils.esc(s.name);
+            return `
                     <div class="att-mark-row">
                         <span class="fw-semibold small flex-grow-1">${safeName}</span>
                         <div class="btn-group btn-group-sm" data-subject="${Utils.esc(s.id)}">
@@ -167,7 +167,7 @@ const AttendanceModule = {
                         </div>
                         <button class="btn btn-sm btn-link text-danger" onclick="AttendanceModule.deleteSubject('${Utils.esc(s.id)}', '${safeName}')" title="Delete"><i class="bi bi-trash"></i></button>
                     </div>`;
-                }).join('')}
+        }).join('')}
             </div>
             <button class="btn btn-primary btn-sm mt-3" onclick="AttendanceModule.markAttendance()"><i class="bi bi-check-lg me-1"></i>Mark Attendance</button>`;
     },
@@ -182,6 +182,7 @@ const AttendanceModule = {
         try {
             await API.post('/attendance/bulk', { date, records });
             Utils.showToast('Attendance marked', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             this.loadAll();
         } catch (e) { Utils.showToast(e.message, 'error'); }
     },
@@ -331,6 +332,7 @@ const AttendanceModule = {
                 modal.hide();
                 this.loadAll();
                 Utils.showToast('Subject added', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) { Utils.showToast(err.message, 'error'); }
         });
         document.getElementById(modalId).addEventListener('hidden.bs.modal', () => document.getElementById(modalId).remove());
@@ -372,6 +374,7 @@ const AttendanceModule = {
                 modal.hide();
                 this.loadAll();
                 Utils.showToast('Bulk attendance marked', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) { Utils.showToast(err.message, 'error'); }
         });
         document.getElementById(modalId).addEventListener('hidden.bs.modal', () => document.getElementById(modalId).remove());

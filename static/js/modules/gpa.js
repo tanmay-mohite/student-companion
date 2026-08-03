@@ -463,6 +463,7 @@ const GPAModule = {
                 this.loadSemesters();
                 this.loadStats();
                 Utils.showToast(isEdit ? 'Semester updated' : 'Semester added', 'success');
+                document.dispatchEvent(new CustomEvent('dashboard:refresh'));
             } catch (err) {
                 Utils.showToast(err.message || 'Failed to save', 'error');
             }
@@ -494,6 +495,7 @@ const GPAModule = {
             this.loadSemesters();
             this.loadStats();
             Utils.showToast('Semester deleted', 'success');
+            document.dispatchEvent(new CustomEvent('dashboard:refresh'));
         } catch (e) {
             Utils.showToast('Failed to delete', 'error');
         }
