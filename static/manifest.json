@@ -1,6 +1,6 @@
 {
     "name": "Student Companion",
-    "short_name": "StudCompanion",
+    "short_name": "Student Companion",
     "description": "An all-in-one academic assistant for students",
     "start_url": "/",
     "display": "standalone",

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="/css/style.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
 </head>
+
 <body>
     <!-- Auth Container (Login / Register) -->
     <div id="auth-container" class="d-none">
@@ -44,29 +46,44 @@
                 <div class="d-flex align-items-center gap-2 ms-auto">
                     <!-- Notification Bell -->
                     <div class="dropdown">
-                        <button class="btn btn-link text-decoration-none position-relative" data-bs-toggle="dropdown" id="notif-bell">
+                        <button class="btn btn-link text-decoration-none position-relative" data-bs-toggle="dropdown"
+                            id="notif-bell">
                             <i class="bi bi-bell fs-5"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" id="notif-count">0</span>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"
+                                id="notif-count">0</span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-end p-2" style="width:320px;max-height:400px;overflow-y:auto" id="notif-dropdown">
+                        <div class="dropdown-menu dropdown-menu-end p-2"
+                            style="width:320px;max-height:400px;overflow-y:auto" id="notif-dropdown">
                             <div class="d-flex justify-content-between align-items-center px-2 mb-2">
                                 <strong>Notifications</strong>
-                                <button class="btn btn-sm btn-link text-decoration-none" id="mark-all-read-btn">Mark all read</button>
+                                <button class="btn btn-sm btn-link text-decoration-none" id="mark-all-read-btn">Mark all
+                                    read</button>
                             </div>
-                            <div id="notif-list"><p class="text-muted text-center small">No notifications</p></div>
+                            <div id="notif-list">
+                                <p class="text-muted text-center small">No notifications</p>
+                            </div>
                         </div>
                     </div>
                     <!-- User Dropdown -->
                     <div class="dropdown">
-                        <button class="btn btn-link text-decoration-none dropdown-toggle d-flex align-items-center gap-1" data-bs-toggle="dropdown">
-                            <span id="user-avatar-small" class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:32px;height:32px;font-size:14px;">U</span>
+                        <button
+                            class="btn btn-link text-decoration-none dropdown-toggle d-flex align-items-center gap-1"
+                            data-bs-toggle="dropdown">
+                            <span id="user-avatar-small"
+                                class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                style="width:32px;height:32px;font-size:14px;">U</span>
                             <span id="user-name-nav" class="d-none d-md-inline">User</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#profile"><i class="bi bi-person"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#notifications"><i class="bi bi-bell"></i> Notifications</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logout-btn"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="#notifications"><i class="bi bi-bell"></i>
+                                    Notifications</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#" id="logout-btn"><i class="bi bi-box-arrow-right"></i>
+                                    Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -77,15 +94,24 @@
             <!-- Sidebar -->
             <nav class="sidebar d-lg-block collapse" id="sidebar">
                 <ul class="nav flex-column pt-2">
-                    <li class="nav-item"><a class="nav-link" href="#dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tasks"><i class="bi bi-list-check"></i> Tasks</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#attendance"><i class="bi bi-calendar-check"></i> Attendance</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#exams"><i class="bi bi-journal-bookmark"></i> Exam Prep</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#timetable"><i class="bi bi-table"></i> Timetable</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#gpa"><i class="bi bi-calculator"></i> GPA Calculator</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#expenses"><i class="bi bi-wallet2"></i> Expenses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#notifications"><i class="bi bi-bell"></i> Notifications</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#profile"><i class="bi bi-person"></i> Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#dashboard"><i class="bi bi-speedometer2"></i>
+                            Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tasks"><i class="bi bi-list-check"></i> Tasks</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#attendance"><i class="bi bi-calendar-check"></i>
+                            Attendance</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#exams"><i class="bi bi-journal-bookmark"></i> Exam
+                            Prep</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#timetable"><i class="bi bi-table"></i> Timetable</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#gpa"><i class="bi bi-calculator"></i> GPA
+                            Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#expenses"><i class="bi bi-wallet2"></i> Expenses</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#notifications"><i class="bi bi-bell"></i>
+                            Notifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#profile"><i class="bi bi-person"></i> Profile</a>
+                    </li>
                 </ul>
             </nav>
 
@@ -117,4 +143,5 @@
     <script src="/js/modules/notifications.js"></script>
     <script src="/js/modules/profile.js"></script>
 </body>
+
 </html>
