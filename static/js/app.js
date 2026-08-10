@@ -44,9 +44,11 @@ const App = {
     // Routing
     route() {
         const hash = location.hash.slice(1) || 'dashboard';
+
+        // Show login page for unauthenticated users on login hash
         if (!this.currentUser && hash !== 'login') return;
 
-        // Update active nav
+        // Update active nav (only for authenticated users)
         document.querySelectorAll('.sidebar .nav-link').forEach(link => {
             link.classList.toggle('active', link.getAttribute('href') === '#' + hash);
         });
