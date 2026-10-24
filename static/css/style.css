@@ -232,6 +232,39 @@ body {
     box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
+/* Introduction page */
+#intro-container {
+    background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-indigo, #6610f2) 100%);
+    color: var(--bs-white);
+}
+
+#intro-container .bi-mortarboard-fill {
+    color: var(--bs-white);
+}
+
+#intro-container h2 {
+    color: var(--bs-white);
+}
+
+#intro-container p.text-muted {
+    opacity: 0.9;
+}
+
+#intro-container .btn-primary {
+    background: var(--bs-white);
+    color: var(--bs-primary);
+    border: none;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+#intro-container .btn-primary:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 /* Streak */
 .streak-card {
     text-align: center;

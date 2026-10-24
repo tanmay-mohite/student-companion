@@ -274,7 +274,7 @@ def delete_account():
     db.budgets.delete_one({"user_id": request.user_id})
 
     # Delete login history
-    db.login_history.delete_many({"user_id": request.user_id})
+    db.activity_logs.delete_many({"user_id": request.user_id})
 
     # Delete user account
     db.users.delete_one({"_id": to_object_id(request.user_id)})

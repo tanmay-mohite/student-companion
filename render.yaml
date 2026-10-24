@@ -6,12 +6,12 @@ services:
     startCommand: gunicorn "app:create_app()"
     envVars:
       - key: MONGO_URI
-        value:
+        value: ${{ MONGO_URI }}
       - key: JWT_SECRET
-        value:
+        value: ${{ JWT_SECRET }}
       - key: JWT_EXPIRY_HOURS
-        value:
+        value: "72"
       - key: GOOGLE_CLIENT_ID
-        value:
+        value: ${{ GOOGLE_CLIENT_ID }}
       - key: GOOGLE_CLIENT_SECRET
-        value:
+        value: ${{ GOOGLE_CLIENT_SECRET }}

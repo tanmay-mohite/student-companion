@@ -470,14 +470,6 @@ const DashboardModule = {
         return 'Good evening';
     },
 
-    // Listen for dashboard refresh events from other modules
-    setupRefreshListener() {
-        document.addEventListener('dashboard:refresh', () => {
-            if (this.currentPage === 'dashboard') {
-                this.render();
-            }
-        });
-    },
 };
 
 App.registerModule('dashboard', () => DashboardModule.render());

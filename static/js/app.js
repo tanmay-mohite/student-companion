@@ -12,7 +12,10 @@ const App = {
         this.setupLogout();
         this.setupMarkAllRead();
 
+        // Check if introduction has been shown
+        const introShown = localStorage.getItem('introShown');
         const token = localStorage.getItem('token');
+
         if (token) {
             try {
                 const data = await API.get('/auth/me');
@@ -22,10 +25,18 @@ const App = {
                 this.updateNavUser();
             } catch (e) {
                 API.clearTokens();
-                this.showAuth();
+                if (!introShown) {
+                    this.showIntro();
+                } else {
+                    this.showAuth();
+                }
             }
         } else {
-            this.showAuth();
+            if (!introShown) {
+                this.showIntro();
+            } else {
+                this.showAuth();
+            }
         }
 
         window.addEventListener('hashchange', () => this.route());
@@ -76,8 +87,8 @@ const App = {
 
     // Auth
     showAuth() {
+        this.hideAllContainers();
         document.getElementById('auth-container').classList.remove('d-none');
-        document.getElementById('app-container').classList.add('d-none');
         this.renderAuthForm('login');
         document.getElementById('auth-toggle-link').onclick = (e) => {
             e.preventDefault();
@@ -87,8 +98,28 @@ const App = {
     },
 
     showApp() {
-        document.getElementById('auth-container').classList.add('d-none');
+        this.hideAllContainers();
         document.getElementById('app-container').classList.remove('d-none');
+    },
+
+    showIntro() {
+        this.hideAllContainers();
+        document.getElementById('intro-container').classList.remove('d-none');
+        // Set up the get started button
+        const getStartedBtn = document.getElementById('intro-get-started-btn');
+        if (getStartedBtn) {
+            getStartedBtn.onclick = (e) => {
+                e.preventDefault();
+                localStorage.setItem('introShown', 'true');
+                this.showAuth();
+            };
+        }
+    },
+
+    hideAllContainers() {
+        document.getElementById('intro-container').classList.add('d-none');
+        document.getElementById('auth-container').classList.add('d-none');
+        document.getElementById('app-container').classList.add('d-none');
     },
 
     renderAuthForm(mode) {
@@ -548,13 +579,6 @@ const App = {
         }
     },
 
-    // Stop notification checker (useful when logging out)
-    stopNotificationChecker() {
-        if (this.notificationIntervalId) {
-            clearInterval(this.notificationIntervalId);
-            this.notificationIntervalId = null;
-        }
-    },
 };
 
 // Init on DOM ready
